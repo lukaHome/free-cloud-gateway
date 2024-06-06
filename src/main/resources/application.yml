@@ -1,0 +1,18 @@
+server:
+  port: 9001
+spring:
+  application:
+    name: free-cloud-gateway
+  webflux:
+    base-path: /
+  cloud:
+    gateway:
+      routes:
+        - id: platform-common-route
+          uri: "http://localhost:8001"
+          predicates:
+            - Path=/api/platform/**
+          filters:
+            - StripPrefix=1
+
+
