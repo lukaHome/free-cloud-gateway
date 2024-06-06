@@ -12,7 +12,22 @@ spring:
           uri: "http://localhost:8001"
           predicates:
             - Path=/api/platform/**
+            - Method=GET
           filters:
             - StripPrefix=1
-
+        - id: platform-lb-route
+          uri: lb://free-cloud-platform
+          predicates:
+            - Path=/api/platform/**
+          filters:
+            - StripPrefix=1
+    discovery:
+      client:
+        simple:
+          instances:
+            "free-cloud-platform":
+              - host: localhost
+                port: 8001
+              - host: localhost
+                port: 8002
 
